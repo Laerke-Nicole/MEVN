@@ -14,7 +14,7 @@
                 <div>
                   <p class="font-semibold"> {{ item.name }} </p> <!-- Product name -->
                   <p>Price: {{ item.price.toFixed(2) }} </p> <!-- Product price -->
-                  <p>Total:  </p> <!-- Total price of the product -->
+                  <p>Total: {{ cartTotalIndividualProduct(item._id).toFixed(2) }} </p> <!-- Total price of the product -->
                 </div>
                 <div class="flex items-center">
                   <button @click="updateQuantity(item._id, item.quantity -1)" class="bg-orange-600 px-2">-</button>  <!-- Decrease quantity -->
@@ -30,11 +30,11 @@
           <p v-if="cart.length === 0" class="text-center">Cart is empty</p> <!-- If cart is empty -->
 
           <div class="pt-4 border-t ">
-            <p class="text-right font-semibold">Subtotal: $ </p> <!-- Total in the cart -->
-            <p class="text-right font-semibold">Sales tax: $ </p> <!-- Salestax in the cart -->
+            <p class="text-right font-semibold">Subtotal: ${{ cartTotal() }} </p> <!-- Total in the cart -->
+            <p class="text-right font-semibold">Sales tax: ${{ salesTax() }} </p> <!-- Salestax in the cart -->
             <p class="font-semibold">Coupon Code:</p>
-            <input type="text" class="border p-1 pr-2 bg-[#181818] text-right w-28" placeholder="Enter code"> <!-- Coupon code -->
-            <p class="text-right font-semibold">Grand Total: $ </p> <!-- Grand total in the cart -->
+            <input type="text" class="border p-1 pr-2 bg-[#181818] text-right w-28" placeholder="Enter code" v-model="code"> <!-- Coupon code -->
+            <p class="text-right font-semibold">Grand Total: ${{ grandTotal() }} </p> <!-- Grand total in the cart -->
             <div class="flex justify-end">
               <button class="bg-green-600 text-white p-2 mt-4 rounded hover:bg-green-700">Checkout</button> <!-- Checkout button on click -->
             </div>
@@ -53,7 +53,7 @@ const toggleCart = ():void => {
   isVisible.value = !isVisible.value
 }
 
-const { cart, updateQuantity } = useCart()
+const { code, cart, updateQuantity, cartTotal, cartTotalIndividualProduct, salesTax, grandTotal } = useCart()
 
 
 </script>
