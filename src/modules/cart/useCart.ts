@@ -20,13 +20,37 @@ export const useCart = () => {
         console.log("Added item to cart: ", cart.value)
     }
 
-    return {
-        cart,
-        addToCart
+    const removeFromCart = (productId: string) => {
+        const existingItem = cart.value.find(item => item._id === productId)
+        if (existingItem) {
+            cart.value = cart.value.filter(item => item._id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart.value));
+        }
     }
 
-    // return cart so we have acces to system
-    return {
 
+    const updateQuantity = (productId: string, quantity: number) => {
+        const item = cart.value.find(item => item._id === productId);
+        localStorage.setItem('cart', JSON.stringify(cart.value));
+        if (item) {
+            item.quantity = quantity
+            // if quantity is less than 0 remove from cart
+            if (item.quantity <= 0) {
+                removeFromCart(productId)
+            }
+            else {
+                localStorage.setItem('cart', JSON.stringify(cart.value));
+            }
+        }
+        console.log(`updated quantity: ${productId}, quantity ${quantity}`)
+    }
+
+
+
+    return {
+        cart,
+        addToCart,
+        removeFromCart,
+        updateQuantity
     }
 }

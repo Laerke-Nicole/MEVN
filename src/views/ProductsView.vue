@@ -6,7 +6,7 @@
     <div v-else-if="error" class="text-center text-red-500">There's an error.</div>                                        <!-- Error message with v-else-if -->
 
     <div v-else class="flex flex-wrap -mx-2">                                                  <!-- Loop through the products -->
-      <div v-for="product in products" :key="product.id" class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2" >                              <!-- Product card with v-for -->
+      <div v-for="product in products" :key="product._id" class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2" >                              <!-- Product card with v-for -->
         <div class="bg-white p-4 rounded-lg shadow-md">
         <img :src="product.imageURL" alt="Product Image" class="w-full h-48 object-cover mb-4 rounded-lg">      <!-- Product image -->
           <h3 class="text-lg text-gray-700 font-semibold mb-2">{{ product.name }}  </h3>                  <!-- Product name -->
