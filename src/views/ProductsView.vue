@@ -14,7 +14,7 @@
           <p class="text-blue-500 font-bold mt-2">{{ product.price }}  </p>                                <!-- Product price -->
           <div class="flex justify-between mt-4">
             <button class="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600">Product Details</button>
-            <button class="bg-green-500 text-white px-1 py-2 rounded hover:bg-green-600">Add to Cart</button> <!-- Add to cart button -->
+            <button @click="addToCart(product)" class="bg-green-500 text-white px-1 py-2 rounded hover:bg-green-600">Add to Cart</button> <!-- Add to cart button -->
           </div>
         </div>
       </div>
@@ -26,6 +26,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useProducts } from '../modules/useProducts'
+import { useCart } from '../modules/cart/useCart'
+
+// what i need from usecart file
+const { addToCart } = useCart();
 
 const { loading, error, products, fetchProducts } = useProducts();
 
