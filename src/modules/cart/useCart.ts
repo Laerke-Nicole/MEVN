@@ -46,11 +46,45 @@ export const useCart = () => {
     }
 
 
+    const cartTotal = ():number => {
+        return Number(cart.value.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2));
+    }
+
+    // grab individual price
+    const cartTotalIndividualProduct = (productId: string) => {
+        const item = cart.value.find(item => item._id === productId);
+        return item ? item.price * item.quantity : 0;
+    }
+
+    // calculate sales tax
+    const salesTax = ():number => {
+        const taxRates = 0.25
+        return Math.round(cartTotal() * taxRates * 100) / 100;
+    }
+
+    // discount code
+    const code = ref<string>('')
+
+    const couponCodeDiscount = (codes: string) => {
+        const couponCodeAccepted = codes === 'DISCOUNT'
+        return couponCodeAccepted ? 0.9 : 1;
+    }
+
+    // total
+    const grandTotal = ():number => {
+        return Number(((cartTotal() + salesTax()) * couponCodeDiscount(code.value)).toFixed(2));
+    }
+
 
     return {
         cart,
         addToCart,
         removeFromCart,
-        updateQuantity
+        updateQuantity,
+
+        cartTotal,
+        salesTax,
+        code,
+        grandTotal
     }
 }
