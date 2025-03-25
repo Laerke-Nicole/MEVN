@@ -36,7 +36,7 @@
             <input type="text" class="border p-1 pr-2 bg-[#181818] text-right w-28" placeholder="Enter code" v-model="code"> <!-- Coupon code -->
             <p class="text-right font-semibold">Grand Total: ${{ grandTotal() }} </p> <!-- Grand total in the cart -->
             <div class="flex justify-end">
-              <button class="bg-green-600 text-white p-2 mt-4 rounded hover:bg-green-700">Checkout</button> <!-- Checkout button on click -->
+              <button @click="checkout" class="bg-green-600 text-white p-2 mt-4 rounded hover:bg-green-700">Checkout</button> <!-- Checkout button on click -->
             </div>
           </div>
         </div>
@@ -46,7 +46,9 @@
 
 <script setup lang="ts">
 import { useCart } from '../../modules/cart/useCart'
+import { useRouter } from 'vue-router';
 
+// toggle cart visibility
 const isVisible = defineModel<boolean>('isVisible')
 
 const toggleCart = ():void => {
@@ -55,6 +57,15 @@ const toggleCart = ():void => {
 
 const { code, cart, updateQuantity, cartTotal, cartTotalIndividualProduct, salesTax, grandTotal } = useCart()
 
+
+// go to checkout page when clicking checkout btn
+const router = useRouter();
+
+const checkout = () => {
+  // when checkout btn is clicked the cart is closed and pushes to the checkout router
+  isVisible.value = false;
+  router.push('/checkout');
+}
 
 </script>
 
