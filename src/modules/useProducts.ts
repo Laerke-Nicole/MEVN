@@ -177,6 +177,9 @@ export const useProducts = () => {
             updateProductInState(id, updatedProductResponse);
             await fetchProducts();
         }
+        catch (err) {
+            error.value = (err as Error).message;
+        }
     }
 
     return { 
@@ -186,7 +189,7 @@ export const useProducts = () => {
         fetchProducts,
         deleteProduct,
         addProduct,
-        updateProduct,
+        updatedProduct,
         getTokenAndUserId
     }
 }
