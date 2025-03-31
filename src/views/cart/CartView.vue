@@ -21,7 +21,7 @@
         </div>
         <!-- Fourth Column: Total Price -->
         <div class="w-1/6 text-right">
-          <p class="font-semibold">${{ cartTotalIndividualProduct(item._id).toFixed(2) }}</p> <!-- Total price of the product with .toFixed() -->
+          <p class="font-semibold">${{ (item.price * item.quantity).toFixed(2) }}</p> <!-- Total price of the product with .toFixed() -->
         </div>
       </div>
 
@@ -44,7 +44,7 @@
           <p>${{ grandTotal() }}</p>  <!-- Grand total in the cart -->
         </div>
         <div class="flex justify-end">
-          <button class="bg-orange-600 text-white p-2 rounded hover:bg-orange-700" @click="buyNow">Buy Now</button> <!-- Checkout button on click -->
+          <button class="bg-orange-600 text-white p-2 rounded hover:bg-orange-700" @click="checkOutBy">Buy Now</button> <!-- Checkout button on click -->
         </div>
       </div>
     </div>
@@ -53,19 +53,10 @@
 
 <script setup lang="ts">
 import { useCart } from '../../modules/cart/useCart'
-import { useRouter } from 'vue-router';
+// import { useRouter } from 'vue-router';
 
 // fetch the data we need from the cart/products
-const { code, cart, updateQuantity, cartTotal, cartTotalIndividualProduct, salesTax, grandTotal } = useCart()
-
-
-// go to checkout page when clicking checkout btn
-const router = useRouter();
-
-const buyNow = () => {
-  // confirmation page
-  router.push('/checkout');
-}
+const { code, cart, updateQuantity, cartTotal, salesTax, grandTotal, checkOutBy } = useCart()
 </script>
 
 <style scoped>

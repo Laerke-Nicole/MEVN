@@ -1,5 +1,5 @@
-import { ref } from 'vue'
-import type { CartItem } from '../../interfaces/interfaces'
+import { ref, watch } from 'vue'
+import type { CartItem, OrderItems } from '../../interfaces/interfaces'
 
 export const useCart = () => {
     // if we have data
@@ -75,6 +75,46 @@ export const useCart = () => {
         return Number(((cartTotal() + salesTax()) * couponCodeDiscount(code.value)).toFixed(2));
     }
 
+    const orders = ref<OrderItems[]>(JSON.parse(localStorage.getItem('orders') || '[]'))
+    
+    // update if theres a chance to the orders
+    watch(orders, (newOrders) => {
+        // make sure its in right order
+        localStorage.setItem('orders', JSON.stringify(newOrders));
+    }, { deep: true}) // add to update the inner layer which is order array
+
+    const checkOutBy = () => {
+        const newOrder: OrderItems = {
+            _id: `order${orders.value.length + 1}`,
+            orderDate: new Date().toISOString(),
+            total: cartTotal(),
+            orderStatus: 'Processing',
+            orderNumber: orders.value.length + 1,
+            userName: 'John Doe',
+            orderLine: cart.value.map(item => ({
+                product: {
+                    _id: item._id,
+                    name: item.name,
+                    description: '',
+                    price: item.price,
+                    imageURL: item.imageURL,
+                    stock: 0,
+                    discount: false,
+                    discountPct: 0,
+                    isHidden: false,
+                    _createdBy: ''
+                },
+                quantity: item.quantity
+            }))
+        }
+        // take info and push it
+        orders.value.push(newOrder)
+        cart.value = []
+        localStorage.setItem('cart', JSON.stringify(cart.value));
+        console.log("Order created: ", orders.value);
+        localStorage.setItem('orders', JSON.stringify(orders.value));
+    }
+    
 
     return {
         cart,
@@ -86,6 +126,9 @@ export const useCart = () => {
         cartTotalIndividualProduct,
         salesTax,
         code,
-        grandTotal
+        grandTotal,
+
+        orders,
+        checkOutBy
     }
 }
