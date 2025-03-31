@@ -40,7 +40,7 @@
               </div>
               <!-- Fifth Column: Total Price -->
               <div class="w-1/6 text-right">
-                <p class="font-semibold">$ {{ calculateDiscountedPrice((item.product * item.quantity)).toFixed(2) }}</p> <!-- Total price with .toFixed() -->
+                <p class="font-semibold">$ {{ (calculateDiscountedPrice(item.product) * item.quantity).toFixed(2) }}</p> <!-- Total price with .toFixed() -->
               </div>
             </div>
           </div>
@@ -49,7 +49,7 @@
     </div>
     <div class="w-1/3 pl-4">
       <h2 class="text-2xl font-bold mb-4">Revenue</h2>
-      <p class="text-xl font-semibold">Total Revenue: $ {{ totalRevenue.tofixed(2) }}</p> <!-- Total Revenue with .toFixed() -->
+      <p class="text-xl font-semibold">Total Revenue: $ {{ totalRevenue.toFixed(2) }}</p> <!-- Total Revenue with .toFixed() -->
     </div>
   </div>
 </template>
@@ -57,7 +57,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useCart } from '../../modules/cart/useCart'
-import type { Product } from '../../interfaces/interface'
+import type { Product } from '../../interfaces/interfaces'
 
 const { orders } = useCart()
 

@@ -17,6 +17,7 @@
         <button @click="toggleCart">Cart</button>
 
         <!-- Routerlink to orders -->
+        <RouterLink to="/orders" class="mr-4">Orders</RouterLink>
 
 
       </nav>
