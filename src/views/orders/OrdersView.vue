@@ -4,7 +4,7 @@
       <h2 class="text-2xl font-bold mb-4">Order History</h2>
       <p v-if="orders.length === 0"  class="text-center">No orders found</p> <!-- If there are no orders -->
       <div v-else> <!-- If there are orders -->
-        <div v-for="order in orders" :key="orders._id" class="mb-8 border-b pb-4"> <!-- Loop through the orders -->
+        <div v-for="order in orders" :key="order._id" class="mb-8 border-b pb-4"> <!-- Loop through the orders -->
           <div class="flex justify-between items-center mb-4">
             <div>
               <p class="font-semibold">Order ID: {{ order._id }}</p> <!-- Order ID -->

@@ -182,6 +182,26 @@ export const useProducts = () => {
         }
     }
 
+    // filter correct things
+    const fetchProductById = async(id: string): Promise<Product[] | null> => {
+        try {
+            const response = await fetch(`https://ments-restapi.onrender.com/api/products/${id}`);
+            if (!response.ok) {
+                throw new Error('No data available');
+            }
+
+            const data: Product[] = await response.json();
+            console.log("products fetched", data);
+            // return data/ product if it exists
+            return data;
+        }
+        catch (err) {
+            console.log(err);
+            // if its null then return null since fetchProductById can either be null or Product[]
+            return null;
+        }
+    }
+
     return { 
         error, 
         loading, 
@@ -190,6 +210,7 @@ export const useProducts = () => {
         deleteProduct,
         addProduct,
         updatedProduct,
-        getTokenAndUserId
+        getTokenAndUserId,
+        fetchProductById
     }
 }

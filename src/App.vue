@@ -9,12 +9,12 @@
         <RouterLink to="/auth" class="mr-4">Auth</RouterLink>
         <RouterLink v-if="isLoggedIn" to="/admin" class="mr-4">Admin</RouterLink>
 
-        <button v-if="isLoggedIn" @click="logout">Log out</button>
+        <button v-if="isLoggedIn" @click="logout" class="mr-4">Log out</button>
         <!-- RouterLink to products, Auth, Admin & and logout button -->
 
 
         <!-- toggle cart button -->
-        <button @click="toggleCart">Cart</button>
+        <button @click="toggleCart" class="mr-4">Cart</button>
 
         <!-- Routerlink to orders -->
         <RouterLink to="/orders" class="mr-4">Orders</RouterLink>

@@ -13,7 +13,7 @@
           <p class="text-gray-700">{{ product.description }} </p>                                               <!-- Product description -->
           <p class="text-blue-500 font-bold mt-2">{{ product.price }}  </p>                                <!-- Product price -->
           <div class="flex justify-between mt-4">
-            <button class="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600">Product Details</button>
+            <router-link :to="`/products/${product._id}`" class="bg-blue-500 text-white px-1 py-2 rounded hover:bg-blue-600">Product Details</router-link>
             <button @click="addToCart(product)" class="bg-green-500 text-white px-1 py-2 rounded hover:bg-green-600">Add to Cart</button> <!-- Add to cart button -->
           </div>
         </div>
